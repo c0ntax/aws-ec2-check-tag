@@ -19,8 +19,10 @@ And then all you need to do so check that `RunHere` has been set to `True`
 Using the above example, you could use the following code:
 
 ```php
+use C0ntax\Aws\Ec2\CheckTag\Exceptions\KeyNotFoundException;
+use C0ntax\Aws\Ec2\CheckTag\Exceptions\NotOnEc2InstanceException;
 
-use C0ntax\Aws\Ec2\CheckTag\Exceptions\KeyNotFoundException;use C0ntax\Aws\Ec2\CheckTag\Exceptions\NotOnEc2InstanceException;public function doSomething()
+public function doSomething()
 {
   try {
     if (!$this->getCheckService()->check('RunHere', 'True')) {
