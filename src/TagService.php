@@ -32,7 +32,12 @@ class TagService
 
         $data = $result->toArray();
 
-        return $data['Tags'];
+        $out = [];
+        foreach ($data['Tags'] as $tagArray) {
+            $out[$tagArray['Key']] = $tagArray['Value'];
+        }
+
+        return $out;
     }
 
     /**

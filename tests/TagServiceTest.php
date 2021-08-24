@@ -26,7 +26,7 @@ class TagServiceTest extends TestCase
         $ec2Client = new Ec2Client([
             'region' => 'eu-west-1',
             'version' => 'latest',
-            'handler' => $mock
+            'handler' => $mock,
         ]);
 
         $tagService = new TagService($ec2Client);
@@ -37,9 +37,27 @@ class TagServiceTest extends TestCase
     {
         return [
             [
-                'instanceId' => 'blablabla',
-                'result' => new Result(['Tags' => ['This' => 'That', 'Up' => 'Down']]),
-                'expected' => ['This' => 'That', 'Up' => 'Down'],
+                'instanceId' => 'i-029969d5aaefbff22',
+                'result' => new Result([
+                    'Tags' => [
+                        [
+                            'Key' => 'This',
+                            'ResourceId' => 'i-029969d5aaefbff22',
+                            'ResourceType' => 'instance',
+                            'Value' => 'That',
+                        ],
+                        [
+                            'Key' => 'Up',
+                            'ResourceId' => 'i-029969d5aaefbff22',
+                            'ResourceType' => 'instance',
+                            'Value' => 'Down',
+                        ],
+                    ],
+                ]),
+                'expected' => [
+                    'This' => 'That',
+                    'Up' => 'Down',
+                ],
             ],
         ];
     }
