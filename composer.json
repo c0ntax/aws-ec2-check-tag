@@ -33,7 +33,7 @@
         }
     ],
     "require": {
-        "php": "^7.4",
+        "php": ">=7.4 <9.0",
         "aws/aws-sdk-php": "^3.0",
         "razorpay/ec2-metadata": "dev-master#5be4661c3d3e672a862c84d8432a8862bd9d5e41"
     },
