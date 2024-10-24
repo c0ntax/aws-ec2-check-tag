@@ -8,6 +8,11 @@ use Aws\Result;
 use C0ntax\Aws\Ec2\CheckTag\TagService;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class TagServiceTest
+ *
+ * @covers \C0ntax\Aws\Ec2\CheckTag\TagService
+ */
 class TagServiceTest extends TestCase
 {
 
@@ -17,6 +22,7 @@ class TagServiceTest extends TestCase
      * @param array  $expected
      *
      * @dataProvider createGetTagsTestData
+     * @covers      \C0ntax\Aws\Ec2\CheckTag\TagService::getTags
      */
     public function testGetTags(string $instanceId, Result $result, array $expected): void
     {

@@ -8,9 +8,17 @@ use C0ntax\Aws\Ec2\CheckTag\InstanceService;
 use C0ntax\Aws\Ec2\CheckTag\TagService;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class CheckServiceTest
+ *
+ * @covers \C0ntax\Aws\Ec2\CheckTag\CheckService
+ */
 class CheckServiceTest extends TestCase
 {
 
+    /**
+     * @covers \C0ntax\Aws\Ec2\CheckTag\CheckService::check
+     */
     public function testCheckKeyNotFound()
     {
         $instanceService = $this->getMockBuilder(InstanceService::class)

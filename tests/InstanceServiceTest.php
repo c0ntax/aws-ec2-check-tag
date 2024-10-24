@@ -7,9 +7,17 @@ use C0ntax\Aws\Ec2\CheckTag\InstanceService;
 use PHPUnit\Framework\TestCase;
 use Razorpay\EC2Metadata\Ec2MetadataGetter;
 
+/**
+ * Class InstanceServiceTest
+ *
+ * @covers \C0ntax\Aws\Ec2\CheckTag\InstanceService
+ */
 class InstanceServiceTest extends TestCase
 {
 
+    /**
+     * @covers \C0ntax\Aws\Ec2\CheckTag\InstanceService::getInstanceId
+     */
     public function testGetInstanceIdNotOnEc2(): void
     {
         $ec2MetadataGetter = $this->getMockBuilder(Ec2MetadataGetter::class)
@@ -24,6 +32,9 @@ class InstanceServiceTest extends TestCase
         $instanceService->getInstanceId();
     }
 
+    /**
+     * @covers \C0ntax\Aws\Ec2\CheckTag\InstanceService::getInstanceId
+     */
     public function testGetInstanceId(): void
     {
         $ec2MetadataGetter = $this->getMockBuilder(Ec2MetadataGetter::class)
