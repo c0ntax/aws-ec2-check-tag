@@ -1,0 +1,16 @@
+name: Test
+
+on: [push]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: php-actions/composer@v6
+      - name: PHPUnit tests
+        uses: php-actions/phpunit@v4
+        with:
+          php_extensions: "xdebug"
+          coverage_clover: "coverage/clover.xml"
