@@ -2,10 +2,14 @@
 
 namespace C0ntax\Aws\Ec2\CheckTag\Tests;
 
+use AssertionError;
 use C0ntax\Aws\Ec2\CheckTag\Exceptions\NotOnEc2InstanceException;
 use C0ntax\Aws\Ec2\CheckTag\InstanceService;
 use PHPUnit\Framework\TestCase;
 use Razorpay\EC2Metadata\Ec2MetadataGetter;
+use RuntimeException;
+use Throwable;
+use TypeError;
 
 /**
  * Class InstanceServiceTest
@@ -17,19 +21,29 @@ class InstanceServiceTest extends TestCase
 
     /**
      * @covers \C0ntax\Aws\Ec2\CheckTag\InstanceService::getInstanceId
+     * @dataProvider createTestGetInstanceIdNotOnEc2Data
      */
-    public function testGetInstanceIdNotOnEc2(): void
+    public function testGetInstanceIdNotOnEc2(Throwable $throws, string $expected): void
     {
         $ec2MetadataGetter = $this->getMockBuilder(Ec2MetadataGetter::class)
             ->disableOriginalConstructor()
             ->addMethods(['getInstanceId'])
             ->getMock();
         $ec2MetadataGetter->method('getInstanceId')
-            ->willThrowException(new NotOnEc2InstanceException());
+            ->willThrowException($throws);
 
         $instanceService = new InstanceService($ec2MetadataGetter);
-        $this->expectException(NotOnEc2InstanceException::class);
+        $this->expectException($expected);
         $instanceService->getInstanceId();
+    }
+
+    public function createTestGetInstanceIdNotOnEc2Data(): array
+    {
+        return [
+            'RuntimeException' => ['throws' => new RuntimeException(), 'expected' => NotOnEc2InstanceException::class],
+            'AssertionError' => ['throws' => new AssertionError(), 'expected' => NotOnEc2InstanceException::class],
+            'AnyOtherException' => ['throws' => new TypeError(), 'expected' => TypeError::class],
+        ];
     }
 
     /**

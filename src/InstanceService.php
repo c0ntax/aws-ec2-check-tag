@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace C0ntax\Aws\Ec2\CheckTag;
 
+use AssertionError;
 use C0ntax\Aws\Ec2\CheckTag\Exceptions\NotOnEc2InstanceException;
 use Razorpay\EC2Metadata\Ec2MetadataGetter;
 use RuntimeException;
@@ -26,7 +27,7 @@ class InstanceService
     {
         try {
             return $this->getEc2MetadataGetter()->getInstanceId();
-        } catch (RuntimeException $exception) {
+        } catch (RuntimeException | AssertionError $exception) {
             throw new NotOnEc2InstanceException($exception->getMessage(), $exception->getCode(), $exception);
         }
     }
